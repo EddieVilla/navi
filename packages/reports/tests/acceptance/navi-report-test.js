@@ -1421,7 +1421,7 @@ test('filtering on a dimension with a storage strategy of \'none\'', function(as
   visit('/reports/1/view');
   click('.grouped-list__group-header:contains(test)');
   click('.grouped-list__item:contains(Context Id)');
-  click('.grouped-list__item:contains(Context Id) > .checkbox-selector__filter');
+  click('.grouped-list__item:contains(Context Id) .checkbox-selector__filter');
   click('.navi-report__run-btn');
 
   andThen(()=> {
@@ -1469,7 +1469,7 @@ test('filtering on a dimension with a storage strategy of \'none\'', function(as
   });
 
   click('.grouped-list__item:contains(Operating System)');
-  click('.grouped-list__item:contains(Operating System) > .checkbox-selector__filter');
+  click('.grouped-list__item:contains(Operating System) .checkbox-selector__filter');
 
   andThen(() => {
     assert.ok(find('.filter-values--dimension-select').is(':visible'),

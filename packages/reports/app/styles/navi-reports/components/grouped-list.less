@@ -17,18 +17,19 @@
         font-size: @font-size-mid;
 
         &-label {
-            .clickable;
+          .clickable;
+          display: flex;
         }
 
         &-info {
             align-self: center;
             cursor: help;
-            display: none;
+            visibility: hidden;
             margin-left: 5px;
         }
 
         &:hover &-info{
-            display: initial;
+            visibility: visible;
         }
     }
 }
