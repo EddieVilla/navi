@@ -49,9 +49,13 @@ export default Ember.Component.extend({
         dimensionName = get(this, 'dimensionName'),
         dimensionService = get(this, '_dimensionService');
 
-        // Only fetch dimensions if filter has values
+    // Only fetch dimensions if filter has values
     if (get(dimensionIds, 'length')) {
-      return dimensionService.find(dimensionName, {field: 'id', values: dimensionIds.join(',')});
+      return dimensionService.find(dimensionName, {field: 'id', values: dimensionIds.join(',')}).then(dims => dims.map(dimension => {
+        //adding isEqual to object so power select can find selected values accurately.
+        dimension.isEqual = function(other) { return this.id == other.id; };
+        return dimension;
+      }));
     } else {
       return Ember.RSVP.resolve(Ember.A());
     }
