@@ -1637,3 +1637,35 @@ test('Report with an unknown table doesn\'t crash', function(assert) {
       'Should show an error message when table cannot be found in metadata');
   });
 });
+
+test('Filter with large cardinality dimensions value selection works', function(assert) {
+  assert.expect(1);
+  let options, option, 
+      dropdownSelector = '.filter-values--dimension-select';
+  visit('/reports/new');
+
+  andThen(() => {
+    selectChoose('.navi-table-select__dropdown', 'Table A');
+    click('.grouped-list__item:Contains(EventId) .checkbox-selector__filter');
+  });
+
+  andThen(() => {
+    click(dropdownSelector + ' .ember-power-select-trigger');
+  });
+
+  andThen(() => {
+    options = find('.filter-values--dimension-select__dropdown .item-row-content').toArray().map(e => e.textContent.replace(/\(\d+\)/, '').trim());
+    option = options[1];
+    selectChoose(dropdownSelector, 2);
+  });
+
+  andThen(() => {
+    selectSearch(dropdownSelector, option.toLowerCase().substring(0, 3));
+  });
+
+  andThen(() => {
+    assert.equal(find('.filter-values--dimension-select__dropdown .ember-power-select-option:contains('+ option +')').attr('aria-selected'),
+      'true',
+      'The value is selected after a search is done');
+  });
+});
