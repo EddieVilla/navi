@@ -1,0 +1,38 @@
+{{!-- Copyright 2018, Yahoo Holdings Inc. Licensed under the terms of the MIT license. See accompanying LICENSE.md file for terms. --}}
+{{log "interval"}}
+{{log "missingIntervals"}}
+{{log missingIntervals}}
+{{log "annotationData"}}
+{{log annotationData}}
+{{#liquid-if warningEnabled class='prediction-contextdata-intervals-warning'}}
+  <div class='prediction-contextdata-intervals-warning__contents' onclick={{action (pipe (action (toggle 'showDetails' this)) (action this.attrs.onDetailsToggle))}}>
+    {{navi-icon 'exclamation-triangle' class='prediction-contextdata-intervals-warning__warning-icon'}}
+    <span class='prediction-contextdata-intervals-warning__message-text'>Prediction Intervals</span>
+    <span class='prediction-contextdata-intervals-warning__details-trigger'>
+      {{#if showDetails}}
+        <span class='prediction-contextdata-intervals-warning__details-desc'>Click to close.</span>
+        {{navi-icon 'chevron-down' class='prediction-contextdata-intervals-warning__arrow-icon'}}
+      {{else}}
+        <span class='prediction-contextdata-intervals-warning__details-desc'>Click for more details.</span>
+        {{navi-icon 'chevron-up' class='prediction-contextdata-intervals-warning__arrow-icon'}}
+      {{/if}}
+    </span>
+  </div>
+  {{#liquid-if showDetails class='prediction-contextdata-intervals-warning__details'}}
+    <div class='prediction-contextdata-intervals-warning__details-content'>
+      <div class='prediction-contextdata-intervals-warning__details-help-text'>The following intervals from the result set have missing data:</div>
+      <div class='prediction-contextdata-intervals-warning__dates'>
+        {{!-- change the name to just intervals --}}
+        {{#each missingIntervals as |interval|}}
+          <div class='prediction-contextdata-intervals-warning__date-row'>
+            {{navi-icon 'times' class='prediction-contextdata-intervals-warning__x-icon'}}
+            {{log "interval"}}
+            {{log interval}}
+            <span class='prediction-contextdata-intervals-warning__date-interval'>{{interval}}</span>
+          </div>
+        {{/each}}
+      </div>
+      <div class='prediction-contextdata-intervals-warning__disclaimer'>Note: Listed intervals include both the start and end dates.</div>
+    </div>
+  {{/liquid-if}}
+{{/liquid-if}}
