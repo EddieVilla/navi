@@ -20,5 +20,8 @@
     "husky": "^0.14.3",
     "lerna": "^2.8.0",
     "validate-commit": "^3.4.0"
+  },
+  "dependencies": {
+    "jshint": "^2.9.5"
   }
 }

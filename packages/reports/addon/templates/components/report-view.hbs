@@ -36,6 +36,11 @@
           response=response
           onDetailsToggle=(action 'resizeVisualization' warningAnimationDuration)
         }}
+        {{prediction-contextdata-intervals-warning
+          response=response
+          annotationData=annotationData
+          onDetailsToggle=(action 'resizeVisualization' warningAnimationDuration)
+        }}
     {{/if}}
 </div>
 {{#if (and isEditingVisualization hasReportRun)}}
